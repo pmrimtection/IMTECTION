@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMR Wira MA Sunan Pandanaran - Portal Resmi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c', /* Crimson Red formal */
+                            800: '#9f1239',
+                            900: '#881337',
+                            primary: '#0F172A', /* Dark Slate elegan */
+                            accent: '#be123c',
+                        }
+                    }
+                }
+            }
+        }
+
+        // Daftar Link Web untuk Setiap Generasi
+        const GENERATIONS = [
+            { id: "gen3", name: "IMTECTION", title: "Kabinet IMTECTION (Gen-3)", desc: "Web Utama & Pusat Informasi Pengurus Saat Ini", url: "https://pmrimtection.github.io/pmr-maspa/", badge: "Aktif / Utama", isCurrent: true },
+            { id: "gen4", name: "Gen 4", title: "PMR Wira Gen-4", desc: "Portal Persiapan & Regenerasi Mendatang", url: "https://example.com/gen4", badge: "Persiapan" }
+        ];
+
+        // Smooth Modal Animations
+        function openGenModal() {
+            const modal = document.getElementById('gen-select-modal');
+            const card = document.getElementById('gen-modal-card');
+            if (modal && card) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    card.classList.remove('scale-95', 'opacity-0');
+                    card.classList.add('scale-100', 'opacity-100');
+                }, 20);
+            }
+        }
+
+        function closeGenModal() {
+            const modal = document.getElementById('gen-select-modal');
+            const card = document.getElementById('gen-modal-card');
+            if (modal && card) {
+                modal.classList.add('opacity-0');
+                card.classList.remove('scale-100', 'opacity-100');
+                card.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 250);
+            }
+        }
+
+        function navigateToGen(url) {
+            if (url) {
+                window.location.href = url;
+            }
+        }
+
+        // Safe logo error fallback handler
+        function handleImgError(imgEl, fallbackId) {
+            imgEl.onerror = null;
+            imgEl.src = 'https://lh3.googleusercontent.com/d/10hbhtIaLgXchVz9K-MGpbJzWFJMpas6P';
+            imgEl.onerror = function() {
+                imgEl.style.display = 'none';
+                const fallback = document.getElementById(fallbackId);
+                if (fallback) fallback.classList.remove('hidden');
+            };
+        }
+    </script>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 leading-relaxed overflow-x-hidden">
+
+    <!-- TOP BAR -->
+    <div class="bg-brand-primary text-slate-300 text-[10px] sm:text-xs py-2 px-4 sm:px-8 flex justify-between items-center border-b border-slate-800">
+        <div class="flex items-center space-x-4 sm:space-x-6">
+            <span class="flex items-center"><i class="fa-solid fa-envelope text-brand-accent mr-1.5 sm:mr-2"></i> pmrimtection@gmail.com</span>
+            <span class="hidden md:flex items-center"><i class="fa-solid fa-graduation-cap text-brand-accent mr-2"></i> Unit Wira MA Sunan Pandanaran</span>
+        </div>
+        <div class="flex items-center space-x-3 sm:space-x-4">
+            <span class="text-[9px] sm:text-[10px] bg-slate-800 text-brand-100 px-2 py-0.5 rounded-full font-semibold">Siamo Tutti Fratelli</span>
+            <div class="h-3 w-[1px] bg-slate-700"></div>
+            <a href="https://www.instagram.com/pmrmaspa/" target="_blank" class="hover:text-brand-accent transition-colors duration-200"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@pmrimtection2" target="_blank" class="hover:text-brand-accent transition-colors duration-200"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-2.5 sm:space-x-3 cursor-pointer group" onclick="openGenModal()">
+                    <div class="relative w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-xl flex items-center justify-center shadow-md overflow-hidden border border-slate-150 p-1 group-hover:scale-105 transition-transform duration-300">
+                        <img id="header-logo" 
+                            src="https://lh3.googleusercontent.com/d/1_LiJcyWIMI9JPlkfPN9r-g69Ikr7tv1_" 
+                            alt="Logo PMR Wira MASPA" 
+                            class="w-full h-full object-contain"
+                            onerror="handleImgError(this, 'header-logo-fallback')" />
+                        <div id="header-logo-fallback" class="hidden text-brand-accent text-lg sm:text-xl">
+                            <i class="fa-solid fa-kit-medical"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-serif text-lg sm:text-xl font-extrabold tracking-tight text-brand-primary block group-hover:text-brand-accent transition-colors duration-300">PMR IMTECTION</span>
+                        <span class="text-[9px] sm:text-[10px] tracking-widest font-bold text-slate-500 uppercase block -mt-1">MA Sunan Pandanaran</span>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-slate-700 hover:text-brand-accent focus:outline-none p-1 transition-colors duration-200">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 shadow-xl transition-all duration-300 ease-in-out">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <div class="pt-4 border-t border-slate-100">
+                    <button onclick="toggleMobileMenu(); openGenModal();" class="block w-full text-center bg-brand-accent hover:bg-brand-800 text-white text-xs font-bold uppercase tracking-wider py-2.5 rounded-lg shadow-md active:scale-95 transition-all duration-200">
+                        <i class="fa-solid fa-layer-group mr-1.5"></i> Pilih Web Generasi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN PORTAL VIEW -->
+    <div id="portal-view" class="transition-all duration-300">
+        <!-- HERO SECTION -->
+        <section id="beranda" 
+         class="relative bg-cover bg-center bg-no-repeat text-white py-16 sm:py-24 lg:py-36 overflow-hidden flex items-center border-b border-slate-800" 
+         style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.96)), url('https://lh3.googleusercontent.com/d/1H6zNEZ5ALbXK5dKgX30RGi7TRakgehpO');">
+            <!-- Decorative Background Elements -->
+            <div class="absolute inset-0 opacity-15 pointer-events-none">
+                <div class="absolute top-10 left-10 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-brand-accent filter blur-[80px] sm:blur-[120px]"></div>
+                <div class="absolute bottom-10 right-10 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] rounded-full bg-brand-900 filter blur-[100px] sm:blur-[150px]"></div>
+                <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] sm:[background-size:24px_24px]"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    <!-- Text Info -->
+                    <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 bg-brand-accent/15 border border-brand-accent/30 backdrop-blur-md px-3.5 py-1.5 rounded-full text-brand-200 text-[10px] sm:text-xs font-bold tracking-wider uppercase mb-1">
+                            <span class="flex h-2 w-2 relative">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
+                            </span>
+                            <span>Impact · Protect · Action</span>
+                        </div>
+                        <h1 class="font-serif text-2xl sm:text-4xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+                            Mewujudkan Karakter <br class="hidden sm:inline">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 via-rose-300 to-rose-500">Relawan Muda Berjiwa Simpati, Empati, &amp; Toleransi</span>
+                        </h1>
+                        <p class="text-slate-300 text-xs sm:text-sm lg:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            Organisasi pembinaan remaja Palang Merah Indonesia dalam mengasah karakter remaja dengan sikap menjaga, melindungi, dan mempengaruhi antar sesama.
+                        </p>
+
+                        <!-- Primary Landing Page CTA Buttons -->
+                        <div class="pt-2 flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto lg:mx-0">
+                            <button onclick="openGenModal()" class="bg-white/5 hover:bg-white/10 active:scale-95 text-white text-xs sm:text-sm font-semibold px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-300 text-center">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span>Pilih Web Generasi</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Graphic Panel / Card with Large Logo -->
+                    <div class="lg:col-span-5 relative hidden lg:block">
+                        <div class="relative mx-auto w-full max-w-[380px]">
+                            <!-- Main Frame Mock -->
+                            <div class="bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10 flex flex-col items-center text-center">
+                                <div class="w-full flex items-center space-x-2 mb-4 sm:mb-6 text-left">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                                    <span class="text-slate-600 text-[10px] sm:text-xs ml-3 font-mono">pmr-gen-selector</span>
+                                </div>
+                                
+                                <!-- Logo Display in Card -->
+                                <div class="relative w-24 h-24 sm:w-32 sm:h-32 bg-white rounded-2xl p-2 border border-white/20 shadow-xl mb-4 flex items-center justify-center overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300" onclick="openGenModal()">
+                                    <img id="hero-logo" 
+                                         src="https://lh3.googleusercontent.com/d/10hbhtIaLgXchVz9K-MGpbJzWFJMpas6P" 
+                                         alt="Logo PMR Wira MASPA" 
+                                         class="w-full h-full object-contain filter drop-shadow"
+                                         onerror="handleImgError(this, 'hero-logo-fallback')" />
+                                    <div id="hero-logo-fallback" class="hidden text-brand-accent text-4xl sm:text-5xl">
+                                        <i class="fa-solid fa-kit-medical"></i>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4 w-full text-left">
+                                    <div class="bg-slate-950/50 rounded-xl p-3 sm:p-4 border border-slate-800/80 cursor-pointer hover:border-brand-accent active:scale-[0.98] transition-all duration-200" onclick="openGenModal()">
+                                        <p class="text-brand-accent font-mono text-[10px] sm:text-xs font-bold">// PORTAL GENERASI</p>
+                                        <h3 class="text-white text-sm sm:text-base font-bold mt-1">Pilih Generasi PMR</h3>
+                                        <p class="text-[10px] sm:text-xs text-slate-400 mt-1">Klik di sini untuk memilih web angkatan (Gen 1 - Gen 4).</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Background Accent Glow -->
+                            <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-accent to-rose-600 rounded-3xl blur opacity-45 transition duration-1000"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS BAR -->
+                <div class="mt-12 sm:mt-20 pt-8 sm:pt-12 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+                    <div class="cursor-pointer hover:scale-105 transition-transform duration-200" onclick="openGenModal()">
+                        <span class="block text-2xl sm:text-4xl font-extrabold text-brand-accent">36</span>
+                        <span class="block text-[9px] sm:text-xs text-slate-400 uppercase tracking-widest mt-1 font-semibold">Anggota</span>
+                    </div>
+                    <div class="cursor-pointer hover:scale-105 transition-transform duration-200" onclick="openGenModal()">
+                        <span class="block text-2xl sm:text-4xl font-extrabold text-brand-accent">3</span>
+                        <span class="block text-[9px] sm:text-xs text-slate-400 uppercase tracking-widest mt-1 font-semibold">Kegiatan Sosial</span>
+                    </div>
+                    <div class="cursor-pointer hover:scale-105 transition-transform duration-200" onclick="openGenModal()">
+                        <span class="block text-2xl sm:text-4xl font-extrabold text-brand-accent">9</span>
+                        <span class="block text-[9px] sm:text-xs text-slate-400 uppercase tracking-widest mt-1 font-semibold">Partisipasi Kegiatan</span>
+                    </div>
+                    <div class="cursor-pointer hover:scale-105 transition-transform duration-200" onclick="openGenModal()">
+                        <span class="block text-2xl sm:text-4xl font-extrabold text-brand-accent">100%</span>
+                        <span class="block text-[9px] sm:text-xs text-slate-400 uppercase tracking-widest mt-1 font-semibold">Dedikasi Sukarela</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="kontak" class="bg-brand-primary text-white pt-16 pb-8 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1">
+                                <img src="https://lh3.googleusercontent.com/d/1126-P9Prmv9Gv9u4g3q9_g1h_m3X2s1a" alt="Logo PMR" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/d/10hbhtIaLgXchVz9K-MGpbJzWFJMpas6P';">
+                            </div>
+                            <span class="font-serif text-lg font-bold">PMR IMTECTION</span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Organisasi kepemudaan Palang Merah Indonesia Unit Wira MA Sunan Pandanaran Yogyakarta.
+                        </p>
+                        <div class="pt-2">
+                            <button onclick="openGenModal()" class="bg-brand-accent hover:bg-brand-800 active:scale-95 text-white text-xs font-bold py-2.5 px-4 rounded-lg shadow transition-all duration-200 flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span>Pilih Web Generasi</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-200">Kontak &amp; Alamat</h4>
+                        <ul class="space-y-2.5 text-xs text-slate-300">
+                            <li class="flex items-start"><i class="fa-solid fa-location-dot text-brand-accent mt-0.5 mr-2"></i> Komplek MA Sunan Pandanaran, Sleman, DIY</li>
+                            <li class="flex items-center"><i class="fa-solid fa-envelope text-brand-accent mr-2"></i> pmrimtection@gmail.com</li>
+                            <li class="flex items-center"><i class="fa-brands fa-instagram text-brand-accent mr-2"></i> @pmrmaspa</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold uppercase tracking-wider mb-4 text-brand-200">Motto</h4>
+                        <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                            <p class="text-xs text-slate-300 italic">"Siamo Tutti Fratelli - Kita Semua Bersaudara"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                    <p>&copy; 2026 PMR Wira MA Sunan Pandanaran. Landing Page Redirect Portal.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- GENERATION SELECTOR MODAL -->
+    <div id="gen-select-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div id="gen-modal-card" class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 transform scale-95 opacity-0 transition-all duration-300 ease-out max-h-[90vh] overflow-y-auto">
+            <button onclick="closeGenModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition-colors duration-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 bg-rose-100 text-brand-accent rounded-xl flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-brand-primary font-serif">Pilih Web Generasi</h3>
+                    <p class="text-xs text-slate-500">Silakan pilih situs web angkatan PMR yang ingin Anda tuju:</p>
+                </div>
+            </div>
+
+            <!-- List of Generation Web Options -->
+            <div class="space-y-3 my-6">
+                <!-- Gen 3 - Active / Current -->
+                <div onclick="navigateToGen(GENERATIONS[0].url)" 
+                     tabindex="0"
+                     class="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/80 hover:bg-rose-50/50 hover:border-brand-accent/50 cursor-pointer transition-all duration-200 ease-out group flex items-center justify-between shadow-sm outline-none active:scale-[0.98] active:ring-2 active:ring-brand-accent active:border-brand-accent focus:ring-2 focus:ring-brand-accent focus:border-brand-accent">
+                    <div class="flex items-center space-x-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 font-extrabold flex items-center justify-center text-sm group-hover:bg-brand-accent group-hover:text-white group-hover:scale-105 transition-all duration-200">
+                            G3
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h4 class="font-bold text-brand-primary text-sm sm:text-base group-hover:text-brand-accent transition-colors duration-200">Gen 3 - Kabinet IMTECTION</h4>
+                                <span class="bg-slate-200 text-slate-600 text-[9px] font-bold px-2 py-0.5 rounded-full">Aktif</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-0.5">Sistem Informasi Utama PMR MASPA Periode Saat Ini</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-slate-400 group-hover:text-brand-accent group-hover:translate-x-1 transition-all duration-200"></i>
+                </div>
+
+                <!-- Gen 4 -->
+                <div onclick="navigateToGen(GENERATIONS[1].url)" 
+                     tabindex="0"
+                     class="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/80 hover:bg-rose-50/50 hover:border-brand-accent/50 cursor-pointer transition-all duration-200 ease-out group flex items-center justify-between shadow-sm outline-none active:scale-[0.98] active:ring-2 active:ring-brand-accent active:border-brand-accent focus:ring-2 focus:ring-brand-accent focus:border-brand-accent">
+                    <div class="flex items-center space-x-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 font-extrabold flex items-center justify-center text-sm group-hover:bg-brand-accent group-hover:text-white group-hover:scale-105 transition-all duration-200">
+                            G4
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h4 class="font-bold text-brand-primary text-sm sm:text-base group-hover:text-brand-accent transition-colors duration-200">Coming Soon</h4>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-0.5">PMR WIRA MASPA PERIODE 26/27</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-400 group-hover:text-brand-accent group-hover:translate-x-1 transition-all duration-200"></i>
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-100 flex justify-end">
+                <button onclick="closeGenModal()" class="px-5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 text-xs font-bold py-2.5 rounded-xl transition-all duration-200">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EVENT DETAIL MODAL -->
+    <div id="program-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div id="program-modal-card" class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 transform scale-95 opacity-0 transition-all duration-300 ease-out">
+            <button onclick="closeProgramModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition-colors duration-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-12 h-12 bg-rose-100 text-brand-accent rounded-2xl flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold text-brand-primary mb-2 font-serif">Detail Event</h3>
+            <p id="modal-desc" class="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">Deskripsi acara...</p>
+            <div class="flex gap-3">
+                <button onclick="closeProgramModal(); openGenModal();" class="flex-1 bg-brand-accent hover:bg-brand-800 active:scale-95 text-white text-xs font-bold py-3 rounded-xl transition-all duration-200 text-center">
+                    Pilih Web Generasi <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+                <button onclick="closeProgramModal()" class="px-5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 text-xs font-bold py-3 rounded-xl transition-all duration-200">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu && icon) {
+                menu.classList.toggle('hidden');
+                if (menu.classList.contains('hidden')) {
+                    icon.className = 'fa-solid fa-bars text-xl';
+                } else {
+                    icon.className = 'fa-solid fa-xmark text-xl';
+                }
+            }
+        }
+
+        // Program Modal Functions with Smooth Transitions
+        function openProgramModal(title, desc) {
+            const titleEl = document.getElementById('modal-title');
+            const descEl = document.getElementById('modal-desc');
+            const modalEl = document.getElementById('program-modal');
+            const cardEl = document.getElementById('program-modal-card');
+            
+            if (titleEl) titleEl.innerText = title;
+            if (descEl) descEl.innerText = desc;
+            if (modalEl && cardEl) {
+                modalEl.classList.remove('hidden');
+                setTimeout(() => {
+                    modalEl.classList.remove('opacity-0');
+                    cardEl.classList.remove('scale-95', 'opacity-0');
+                    cardEl.classList.add('scale-100', 'opacity-100');
+                }, 20);
+            }
+        }
+
+        function closeProgramModal() {
+            const modalEl = document.getElementById('program-modal');
+            const cardEl = document.getElementById('program-modal-card');
+            if (modalEl && cardEl) {
+                modalEl.classList.add('opacity-0');
+                cardEl.classList.remove('scale-100', 'opacity-100');
+                cardEl.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modalEl.classList.add('hidden');
+                }, 250);
+            }
+        }
+    </script>
+</body>
+</html>
